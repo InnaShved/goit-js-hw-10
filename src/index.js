@@ -1,6 +1,6 @@
 import './css/styles.css';
-import { fetchBreeds } from './js/cat-api';
-import { fetchCatByBreed } from './js/cat-api';
+import { fetchBreeds } from './js/cat-api.js';
+import { fetchCatByBreed } from './js/cat-api.js';
 import Notiflix from 'notiflix';
 
 
@@ -14,6 +14,7 @@ loaderText.classList.add("invisible");
 
 
 function fillList() {
+  loaderText.classList.remove("invisible");
   fetchBreeds()
     .then((data) =>
       breedSelect.insertAdjacentHTML('afterbegin', data.map(({ id, name }) =>
@@ -22,7 +23,8 @@ function fillList() {
     .catch(() =>
        Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!')
        
-    );
+  );
+  loaderText.classList.add("invisible");
     
 }
 fillList();
