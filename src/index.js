@@ -1,6 +1,6 @@
-import './css/styles.css';
-import { fetchBreeds } from './js/cat-api.js';
-import { fetchCatByBreed } from './js/cat-api.js';
+import 'css/styles.css';
+import { fetchBreeds } from 'js/cat-api';
+import { fetchCatByBreed } from 'js/cat-api';
 import Notiflix from 'notiflix';
 
 
