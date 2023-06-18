@@ -1,6 +1,6 @@
-import 'css/styles.css';
-import { fetchBreeds } from 'js/cat-api';
-import { fetchCatByBreed } from 'js/cat-api';
+import './css/styles.css';
+import { fetchBreeds } from './js/cat-api';
+import { fetchCatByBreed } from './js/cat-api';
 import Notiflix from 'notiflix';
 
 
@@ -15,21 +15,23 @@ loaderText.classList.add("invisible");
 
 function fillList() {
   loaderText.classList.remove("invisible");
+
   fetchBreeds()
-    .then((data) =>
-      breedSelect.insertAdjacentHTML('afterbegin', data.map(({ id, name }) =>
+    .then((data) => {
+      const breedList = data.map((item) => ({ name: item.name, id: item.id }));
+      breedSelect.insertAdjacentHTML('afterbegin', breedList.map(({ id, name }) =>
         `<option value = "${id}">${name}</option>`)
-        .join('')))
+        .join(''));
+    })
     .catch(() =>
-       Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!')
-       
+      Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!')
   );
+  
   loaderText.classList.add("invisible");
-    
-}
+};
+
 fillList();
 
-;
 breedSelect.addEventListener('change', () => {
   
   loaderText.classList.remove("invisible");
@@ -70,5 +72,4 @@ function createCatCard(cats, title) {
 
 function clearCatCard() {
   catInfo.innerHTML = '';
-  
 };
