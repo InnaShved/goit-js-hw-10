@@ -38,12 +38,11 @@ breedSelect.addEventListener('change', () => {
 
   clearCatCard();
     const value = breedSelect.options[breedSelect.selectedIndex].value;
-    const name = breedSelect.options[breedSelect.selectedIndex].text;
-    
+        
   fetchCatByBreed(value)
     .then(catData => {
       loaderText.classList.add("invisible");
-      createCatCard(catData, name); 
+      createCatCard(catData); 
   })
     .catch(() => {
       loaderText.classList.add("invisible");
@@ -52,23 +51,26 @@ breedSelect.addEventListener('change', () => {
     
 });
 
-function createCatCard(cats, title) {
+function createCatCard(cats) {
   
   const cat = cats[0];
+  console.log(cat);
 
   const markup = `
     <div>
     <img src="${cat.url}" class = "cat-img" alt="cat" width="600">
     </div>
     <div>
-    <h2>${title}</h2>
+    <h2>${cat.breeds[0].name}</h2>
     <p> ${cat.breeds[0].description}</p>
     <h3>Temperamnet</h3>
-    <p class ="cat-temp"> ${cat.breeds[0].temperament}</p> 
-    </div> 
+    <p class ="cat-temp"> ${cat.breeds[0].temperament}</p>
+    </div>
     `;
     catInfo.insertAdjacentHTML('afterbegin', markup);
   };
+
+
 
 function clearCatCard() {
   catInfo.innerHTML = '';
